@@ -1,0 +1,6 @@
+html, body { min-width: 0; }
+body { overflow-x: hidden; }
+img { max-width: 100%; }
+input, textarea, button { font-family: inherit; }
+a[href*="p-contact"], a[href*="contact"] { cursor: pointer; }
+.reset_style, .reset_style * { overflow-wrap: anywhere; }

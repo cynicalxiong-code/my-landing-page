@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "tt-iconfont"; /* Project id 3534762 */
+  src: url('iconfont.woff2?t=1731297430691') format('woff2'),
+       url('iconfont.woff?t=1731297430691') format('woff'),
+       url('iconfont.ttf?t=1731297430691') format('truetype');
+}
+
+i.tt-iconfont[class*=" icon-"] {
+  font-family: "tt-iconfont" !important;
+  font-size: 32px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tt-bianzu_14:before {
+  content: "\e60a";
+}
+
+.icon-tt-huan:before {
+  content: "\e609";
+}
+
+.icon-tt-bianzu:before {
+  content: "\e608";
+}
+
+.icon-tt-entry-style13-13:before {
+  content: "\e607";
+}
+
+.icon-tt-send:before {
+  content: "\e605";
+}
+
+.icon-tt-icon-1:before {
+  content: "\e600";
+}
+
+.icon-tt-icon-3:before {
+  content: "\e601";
+}
+
+.icon-tt-icon-4:before {
+  content: "\e602";
+}
+
+.icon-tt-icon-6:before {
+  content: "\e603";
+}
+
+.icon-tt-icon-2:before {
+  content: "\e604";
+}
+
+.icon-tt-icon-5:before {
+  content: "\e606";
+}
+
