@@ -1,0 +1,109 @@
+(function () {
+  var mailForm = document.querySelector('[data-mailto-form="true"]');
+
+  if (mailForm) {
+    mailForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var name = (mailForm.querySelector('[name="username"]') || {}).value || "";
+      var phone = (mailForm.querySelector('[name="phone"]') || {}).value || "";
+      var email = (mailForm.querySelector('[name="email"]') || {}).value || "";
+      var subject = (mailForm.querySelector('[name="field1"]') || {}).value || "Website Inquiry";
+      var message = (mailForm.querySelector('[name="field0"]') || {}).value || "";
+      var body = [
+        "Name: " + name,
+        "Mobile: " + phone,
+        "Email: " + email,
+        "",
+        "Message:",
+        message
+      ].join("\n");
+
+      window.location.href = "mailto:cynicalxiong@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    });
+  }
+
+  var hero = document.querySelector(".sunchine-hero-carousel");
+
+  if (hero) {
+    var heroSlides = Array.prototype.slice.call(hero.querySelectorAll(".sunchine-hero-slide"));
+    var heroThumbs = Array.prototype.slice.call(hero.querySelectorAll(".sunchine-hero-thumb"));
+    var heroPrev = hero.querySelector(".sunchine-hero-prev");
+    var heroNext = hero.querySelector(".sunchine-hero-next");
+    var heroIndex = 0;
+    var heroTimer = null;
+
+    function setHero(index) {
+      if (!heroSlides.length) return;
+      heroIndex = (index + heroSlides.length) % heroSlides.length;
+      heroSlides.forEach(function (slide, slideIndex) {
+        slide.classList.toggle("is-active", slideIndex === heroIndex);
+      });
+      heroThumbs.forEach(function (thumb, thumbIndex) {
+        thumb.classList.toggle("is-active", thumbIndex === heroIndex);
+      });
+    }
+
+    function startHeroTimer() {
+      window.clearInterval(heroTimer);
+      heroTimer = window.setInterval(function () {
+        setHero(heroIndex + 1);
+      }, 5000);
+    }
+
+    if (heroPrev) {
+      heroPrev.addEventListener("click", function () {
+        setHero(heroIndex - 1);
+        startHeroTimer();
+      });
+    }
+
+    if (heroNext) {
+      heroNext.addEventListener("click", function () {
+        setHero(heroIndex + 1);
+        startHeroTimer();
+      });
+    }
+
+    heroThumbs.forEach(function (thumb, index) {
+      thumb.addEventListener("click", function () {
+        setHero(index);
+        startHeroTimer();
+      });
+    });
+
+    setHero(0);
+    startHeroTimer();
+  }
+
+  var gallery = document.querySelector(".sunchine-gallery");
+  if (!gallery) return;
+
+  var track = gallery.querySelector(".sunchine-gallery-track");
+  var slides = Array.prototype.slice.call(gallery.querySelectorAll(".sunchine-gallery-card"));
+  var prev = gallery.querySelector(".sunchine-gallery-prev");
+  var next = gallery.querySelector(".sunchine-gallery-next");
+  var index = 0;
+
+  function visibleCount() {
+    if (window.matchMedia("(max-width: 560px)").matches) return 1;
+    if (window.matchMedia("(max-width: 900px)").matches) return 2;
+    return 4;
+  }
+
+  function update() {
+    if (!track || !slides.length) return;
+    var max = Math.max(0, slides.length - visibleCount());
+    index = Math.max(0, Math.min(index, max));
+    var slideWidth = slides[0].getBoundingClientRect().width;
+    var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || "0");
+    track.style.transform = "translateX(" + (index * -(slideWidth + gap)) + "px)";
+    if (prev) prev.disabled = index === 0;
+    if (next) next.disabled = index === max;
+  }
+
+  if (prev) prev.addEventListener("click", function () { index -= 1; update(); });
+  if (next) next.addEventListener("click", function () { index += 1; update(); });
+  window.addEventListener("resize", update);
+  update();
+})();
